@@ -12,12 +12,7 @@ testWebP(function (support) {
 		document.querySelector('body').classList.add('no-webp');
 	}
 });;
-$(document).ready(function(){
-	$('.menu__burger, .menu__body, .menu__area').click(function(){
-		$('.menu__burger, .menu__body, .menu__area, .menu').toggleClass('_active');
-		$('body').toggleClass('_lock')
-	});
-});
+;
 // Dynamic Adapt v.1
 // HTML data-da="where(uniq class name),position(digi),when(breakpoint)"
 // e.x. data-da="item,2,992"
@@ -188,7 +183,15 @@ function move(){
 //Вызываем функцию
 move();
 */;
-// include('ibg.js');
+function ibg(){
+	let ibg=document.querySelectorAll(".ibg");
+	for (var i = 0; i < ibg.length; i++) {
+		if(ibg[i].querySelector('img')){
+		ibg[i].style.backgroundImage = 'url('+ibg[i].querySelector('img').getAttribute('src')+')';
+		}
+	}
+}
+ibg();;
 // include('animOnScroll.js');;
 /*!
  * Isotope PACKAGED v3.0.6
@@ -227,12 +230,76 @@ $(document).ready(function(){
 		zIndex: 1,
 		appendArrows: $('.home-main__arrows'),
 	});
+	$('.slider-clients__body').slick({
+		infinite: false,
+		speed: 1000,
+		zIndex: 1,
+		arrows: false,
+		dots: true,
+		appendDots: $('.slider-clients__dots'),
+		autoplay: true,
+		autoplaySpeed: 10000,
+	})
+	/**/
+	let menuBurger = $('.menu__burger');
+	let menuBody = $('.menu__body');
+	let menuArea = $('.menu__area');
+	let body = $('body');
+	let menu = $('.menu');
+	let sidebar = $('.sidebar');
+	let sidebarBurger = $('.sidebar__burger');
+	menuBurger.click(function(){
+		if(sidebarBurger.hasClass('_active')){
+			sidebarBurger.removeClass('_active');
+			sidebar.removeClass('_active');
+			menuArea.removeClass('_active');
+		}
+		if(!menuBurger.hasClass('_active')){
+			menuBurger.addClass('_active');
+			menuBody.addClass('_active');
+			menuArea.addClass('_active');
+		} else{
+			menuBurger.removeClass('_active');
+			menuBody.removeClass('_active');
+			menuArea.removeClass('_active');
+		}
+	});
+	menuArea.click(function(){
+		menuArea.removeClass('_active')
+		menuBurger.removeClass('_active');
+		menuBody.removeClass('_active');
+		sidebarBurger.removeClass('_active');
+		sidebar.removeClass('_active');
+	});
+	sidebarBurger.click(function(){
+		if(menuBurger.hasClass('_active')){
+			menuBurger.removeClass('_active');
+			menuBody.removeClass('_active');
+			menuArea.removeClass('_active');
+		}
+		if(!sidebarBurger.hasClass('_active')){
+			sidebarBurger.addClass('_active');
+			sidebar.addClass('_active');
+			menuArea.addClass('_active');
+		} else{
+			sidebarBurger.removeClass('_active');
+			sidebar.removeClass('_active');
+			menuArea.removeClass('_active');
+		}
+	});
+	/**/
 	$('.our-team__item').click(function(){
 		$(this).find('.our-team__overlay, .our-team__picture').toggleClass('_active')
 	});
 	$('.portfolio__pictures').imagesLoaded(function() {
 		$('.portfolio__pictures').isotope({
 			itemSelector: '.portfolio__item',
+			percentPosition: true,
+		});
+	});
+	$('.blog-main__row').imagesLoaded(function() {
+		$('.blog-main__row').isotope({
+			itemSelector: '.blog-main__column',
 			percentPosition: true,
 		});
 	});
